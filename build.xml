@@ -1,0 +1,39 @@
+<project name="ant4fed" basedir=".">
+	<property file="ant4fed.properties" />
+<!-- JSLINT -->
+	<target name="jslint">
+		<echo>JSLinting...</echo>
+		<exec executable="java">
+			<arg line="-jar ${jslintjava.dir}/jslint4java-2.0.0.jar --confusion --css --report xml ../../awpt/www/javascript/*.js"/>
+			 <redirector>
+	        	<outputmapper type="merge" from="*" to="${reports.js.dir}/jslint.xml" />
+	        </redirector>
+		</exec>
+		<xslt in="${reports.js.dir}/jslint.xml" out="${reports.js.dir}/jslint.html" extension=".html" style="${style.dir}/jslint.xsl"/>
+		
+ 		<echo>JSLint is finished.</echo>
+	</target>
+
+<!-- CSSLINT -->
+	<target name="csslint">
+        <echo>CSSLinting...</echo>
+		<exec executable="java">
+            <arg line="-jar ${js.jar} ${csslint.dir}/csslint-rhino.js --format=lint-xml --rules=adjoining-classes,empty-rules,display-property-grouping,floats,font-faces,font-sizes,qualified-headings,unique-headings,zero-units,vendor-prefixes,gradients,regex-selectors,important,compatible-vendor-prefixes,duplicate-properties ../${cssdir}" />
+            <redirector>
+            	<outputmapper type="merge" from="*" to="${reports.css.dir}/csslint.xml" />
+            </redirector>
+		</exec>
+		<xslt in="${reports.css.dir}/csslint.xml" out="${reports.css.dir}/csslint.html" extension=".html" style="${style.dir}/csslint.xsl"/>
+		<echo>CSSLint is finished.</echo>
+    </target>
+
+<!-- JS BEAUTIFIER -->
+	<target name="beautify">
+		<exec executable="java" failonerror="true" outputproperty="beautifier.prop"> 
+            <arg line="-jar ${js.jar} ${beautifier.dir}/beautify-cl.js -i 1 -p -d ${beautifier.dir} ../${bfile}" />
+        </exec>
+		<echo>${beautifier.prop}</echo>
+        <echo file="../${bfile}" append="false">${beautifier.prop}</echo>
+	</target>
+	
+</project>
