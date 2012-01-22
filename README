@@ -1,4 +1,5 @@
 Author: Jim Munro
 
-ant4fed is a fairly simple ANT build script for front-end developers. It allows you to lint your js and css and
-beautify javascript all from the same tool. I may also build in a compressor and a unit-tester at some point.
+ant4fed is a fairly simple ANT build script for front-end developers. It allows you
+to lint your js and css and beautify javascript all from the same tool. I may also 
+build in a compressor and a unit-tester at some point.
