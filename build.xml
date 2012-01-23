@@ -1,30 +1,30 @@
 <project name="ant4fed" basedir=".">
 	<property file="ant4fed.properties" />
+	<property file="options.properties" />
 <!-- JSLINT -->
 	<target name="jslint">
 		<echo>JSLinting...</echo>
 		<exec executable="java">
-			<arg line="-jar ${jslintjava.dir}/jslint4java-2.0.0.jar --confusion --css --report xml ../../awpt/www/javascript/*.js"/>
+			<arg line="-jar ${jslintjava.dir}/jslint4java-2.0.0.jar ${jslint.opts} --report ${jslint.format} ${jsdir}/*.js"/>
 			 <redirector>
 	        	<outputmapper type="merge" from="*" to="${reports.js.dir}/jslint.xml" />
 	        </redirector>
 		</exec>
 		<xslt in="${reports.js.dir}/jslint.xml" out="${reports.js.dir}/jslint.html" extension=".html" style="${style.dir}/jslint.xsl"/>
-		
- 		<echo>JSLint is finished.</echo>
+ 		<echo>JSLint is finished. Check out ${reports.js.dir}/jslint.html to see results!</echo>
 	</target>
 
 <!-- CSSLINT -->
 	<target name="csslint">
         <echo>CSSLinting...</echo>
 		<exec executable="java">
-            <arg line="-jar ${js.jar} ${csslint.dir}/csslint-rhino.js --format=lint-xml --rules=adjoining-classes,empty-rules,display-property-grouping,floats,font-faces,font-sizes,qualified-headings,unique-headings,zero-units,vendor-prefixes,gradients,regex-selectors,important,compatible-vendor-prefixes,duplicate-properties ../${cssdir}" />
+            <arg line="-jar ${js.jar} ${csslint.dir}/csslint-rhino.js --format=lint-xml --rules=${csslint.opts} ../${cssdir}" />
             <redirector>
             	<outputmapper type="merge" from="*" to="${reports.css.dir}/csslint.xml" />
             </redirector>
 		</exec>
 		<xslt in="${reports.css.dir}/csslint.xml" out="${reports.css.dir}/csslint.html" extension=".html" style="${style.dir}/csslint.xsl"/>
-		<echo>CSSLint is finished.</echo>
+		<echo>CSSLint is finished. View results at ${reports.css.dir}/csslint.html for results!</echo>
     </target>
 
 <!-- JS BEAUTIFIER -->
