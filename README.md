@@ -1,5 +1,3 @@
-Author: Jim Munro
-
 **ant4fed** is a fairly simple ANT build script for front-end developers. It allows you
 to lint your js and css and beautify javascript all from the same tool. I may also 
 build in a compressor and a unit-tester at some point.
@@ -8,12 +6,13 @@ I have not included ANT into the project itself yet, so you have to have ANT
 installed to be able to use it. If you're not sure if you have it installed, open
 a terminal and type:
 	> ant -version
-If you get a version number, you're all set. If not, download Apache ANT.
-
-# Usage 
-ant4fed currently has the following packages:
+If you get a version number, you're all set. If not, download [Apache ANT] (http://ant.apache.org/).
 
 ---
+
+# Usage
+ant4fed currently has the following packages:
+
 ## CSS Lint  
 This will 'lint' your CSS for you and give you helpful tips on making your
 code more efficient. Look at <http://csslint.net/> for more info. There is a doc

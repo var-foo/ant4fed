@@ -5,7 +5,7 @@
 	<target name="jslint">
 		<echo>JSLinting...</echo>
 		<exec executable="java">
-			<arg line="-jar ${jslintjava.dir}/jslint4java-2.0.0.jar ${jslint.opts} --report ${jslint.format} ${jsdir}/*.js"/>
+			<arg line="-jar ${jslintjava.dir}/jslint4java-2.0.0.jar ${jslint.opts} --report ${jslint.format} ../${jsdir}/*.js"/>
 			 <redirector>
 	        	<outputmapper type="merge" from="*" to="${reports.js.dir}/jslint.xml" />
 	        </redirector>
