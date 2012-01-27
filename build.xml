@@ -1,6 +1,20 @@
 <project name="ant4fed" basedir=".">
 	<property file="ant4fed.properties" />
 	<property file="options.properties" />
+	
+	<taskdef name="jsmin"
+        classname="net.matthaynes.jsmin.JSMin_Task"
+        classpath="lib/jsmin/jsmin.0.2.4.jar"/>
+	
+<!-- JS BEAUTIFIER -->
+	<target name="beautify">
+		<exec executable="java" failonerror="true" outputproperty="beautifier.prop"> 
+            <arg line="-jar ${js.jar} ${beautifier.dir}/beautify-cl.js -i 1 -p -d ${beautifier.dir} ../${bfile}" />
+        </exec>
+		<echo>${beautifier.prop}</echo>
+        <echo file="../${bfile}" append="false">${beautifier.prop}</echo>
+	</target>
+
 <!-- JSLINT -->
 	<target name="jslint">
 		<echo>JSLinting...</echo>
@@ -14,6 +28,17 @@
  		<echo>JSLint is finished. Check out ${reports.js.dir}/jslint.html to see results!</echo>
 	</target>
 
+<!-- JSMIN -->
+	<target name="jsmin">
+		<echo message="firing up jsmin" />
+		<jsmin destdir="../${minout}" suffix="true" suffixvalue="${jsmin.compressionextension}" force="${jsmin.force}">
+		       <fileset dir="../${minsrc}/" includes="**/*.js"/>
+		</jsmin>
+		
+		<!-- comment the previous <jsmin> and uncomment the following to do only one file at a time -->
+	<!-- <jsmin srcfile="../${minsrc}" suffix="true" /> -->
+	</target>
+	
 <!-- CSSLINT -->
 	<target name="csslint">
         <echo>CSSLinting...</echo>
@@ -27,13 +52,6 @@
 		<echo>CSSLint is finished. View results at ${reports.css.dir}/csslint.html for results!</echo>
     </target>
 
-<!-- JS BEAUTIFIER -->
-	<target name="beautify">
-		<exec executable="java" failonerror="true" outputproperty="beautifier.prop"> 
-            <arg line="-jar ${js.jar} ${beautifier.dir}/beautify-cl.js -i 1 -p -d ${beautifier.dir} ../${bfile}" />
-        </exec>
-		<echo>${beautifier.prop}</echo>
-        <echo file="../${bfile}" append="false">${beautifier.prop}</echo>
-	</target>
+
 	
 </project>
