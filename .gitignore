@@ -1,2 +1,4 @@
 reports/**/*.*
 .project
+.DS_Store
+._.DS_Store
