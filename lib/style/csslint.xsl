@@ -44,7 +44,12 @@ h2{
 
 <xsl:template match="lint/file">
 	<div>
-		<h2><xsl:value-of select="@name" /></h2>
+		<h2>
+			<xsl:element name="a">
+				<xsl:attribute name="href">../../<xsl:value-of select="@name" /></xsl:attribute>
+				<xsl:value-of select="@name" />
+			</xsl:element>
+		</h2>
 		<xsl:for-each select="issue">
 			<ul>	
 				<li><span><strong>Line: </strong> <xsl:value-of select="@line" /></span><span> <strong>Char: </strong> <xsl:value-of select="@char" /></span><span> <strong>Severity: </strong> <xsl:value-of select="@severity" /></span> <span><strong>Reason: </strong> <xsl:value-of select="@reason" /></span></li>
