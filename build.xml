@@ -6,6 +6,10 @@
         classname="net.matthaynes.jsmin.JSMin_Task"
         classpath="lib/jsmin/jsmin.0.2.4.jar"/>
 	
+	 <taskdef name="jsdoctoolkit" 
+	 	classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit" 
+	 	classpath="${jsdoc.dir}/jsdoc-toolkit-ant-task-1.1.2.jar"/>
+	
 <!-- JS BEAUTIFIER -->
 	<target name="beautify">
 		<exec executable="java" failonerror="true" outputproperty="beautifier.prop"> 
@@ -27,7 +31,11 @@
 		<xslt in="${reports.js.dir}/jslint.xml" out="${reports.js.dir}/jslint.html" extension=".html" style="${style.dir}/jslint.xsl"/>
  		<echo>JSLint is finished. Check out ${reports.js.dir}/jslint.html to see results!</echo>
 	</target>
-
+	
+<!-- JSDOC -->
+	<target name="jsdoc">
+	 <jsdoctoolkit jsdochome="${jsdoc-toolkit.dir}/" template="jsdoc" outputdir="${reports.jsdoc.dir}" inputdir="../${jsdir}" />
+	</target>
 <!-- JSMIN -->
 	<target name="jsmin">
 		<echo message="firing up jsmin" />
